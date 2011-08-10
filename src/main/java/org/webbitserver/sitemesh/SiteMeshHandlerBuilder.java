@@ -1,6 +1,7 @@
 package org.webbitserver.sitemesh;
 
 import org.webbitserver.HttpHandler;
+import org.webbitserver.handler.StringHttpHandler;
 
 /**
  * Convenient API for building the main SiteMesh {@link HttpHandler}.
@@ -55,7 +56,7 @@ public class SiteMeshHandlerBuilder
         return new SiteMeshHandler(
                 getSelector(),
                 getContentProcessor(),
-                getDecoratorSelector());
+                getDecorators());
     }
 
 }

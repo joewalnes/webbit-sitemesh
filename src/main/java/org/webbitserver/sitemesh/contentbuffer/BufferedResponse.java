@@ -50,6 +50,7 @@ public abstract class BufferedResponse extends HttpResponseWrapper {
         String lower = name.toLowerCase();
         if (lower.equals("content-type")) {
             setContentType(value);
+            super.header(name, value);
         } else if (buffer == null || !lower.equals("content-length")) {
             super.header(name, value);
         }

@@ -1,9 +1,11 @@
 package org.webbitserver.sitemesh;
 
+import org.sitemesh.DecoratorSelector;
 import org.sitemesh.builder.BaseSiteMeshBuilder;
 import org.sitemesh.config.PathMapper;
 import org.webbitserver.HttpHandler;
 import org.webbitserver.HttpRequest;
+import org.webbitserver.handler.StringHttpHandler;
 import org.webbitserver.sitemesh.contentbuffer.BasicSelector;
 import org.webbitserver.sitemesh.contentbuffer.Selector;
 
@@ -30,6 +32,7 @@ public abstract class BaseSiteMeshHandlerBuilder<BUILDER extends BaseSiteMeshBui
 
     private Collection<String> mimeTypes;
 
+    private PathMapper<HttpHandler[]> decorators = new PathMapper<HttpHandler[]>();
     private PathMapper<Boolean> excludesMapper = new PathMapper<Boolean>();
     private Selector customSelector;
 
@@ -115,6 +118,40 @@ public abstract class BaseSiteMeshHandlerBuilder<BUILDER extends BaseSiteMeshBui
                 }
             };
         }
+    }
+
+    @Override
+    public BUILDER addDecoratorPaths(String contentPath, String... decoratorPaths) {
+        throw new UnsupportedOperationException("This cannot be used in Webbit. Use decorate() instead.");
+    }
+
+    @Override
+    public BUILDER addDecoratorPaths(String contentPath, List<String> decoratorPaths) {
+        throw new UnsupportedOperationException("This cannot be used in Webbit. Use decorate() instead.");
+    }
+
+    @Override
+    public BUILDER addDecoratorPath(String contentPath, String decoratorPath) {
+        throw new UnsupportedOperationException("This cannot be used in Webbit. Use decorate() instead.");
+    }
+
+    @Override
+    public BUILDER setCustomDecoratorSelector(DecoratorSelector<WebbitSiteMeshContext> webbitSiteMeshContextDecoratorSelector) {
+        throw new UnsupportedOperationException("This cannot be used in Webbit. Use decorate() instead.");
+    }
+
+    @Override
+    public DecoratorSelector<WebbitSiteMeshContext> getDecoratorSelector() {
+        throw new UnsupportedOperationException("This cannot be used in Webbit. Use decorate() instead.");
+    }
+
+    public BUILDER decorate(String path, HttpHandler... decorators) {
+        this.decorators.put(path, decorators);
+        return self();
+    }
+
+    public PathMapper<HttpHandler[]> getDecorators() {
+        return decorators;
     }
 
 }

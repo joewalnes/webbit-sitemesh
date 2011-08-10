@@ -13,13 +13,12 @@ public class Main {
         System.out.println("Listening on: " +
                 createWebServer(1234)
                         .add(new SiteMeshHandlerBuilder()
-                                .addDecoratorPath("/*", "/decorator")
+                                .decorate("/*", new StringHttpHandler("text/html",
+                                        "<html><head><style>body { background-color: #ffff00 }</style></head>" +
+                                                "<body><sitemesh:write property='body'/></body></html>"))
                                 .create())
                         .add("/hello", new StringHttpHandler("text/html",
                                 "<html><body><h1>Hello</h1></body></html>"))
-                        .add("/decorator", new StringHttpHandler("text/html",
-                                "<html><style>body { background-color: #ffff00 }</style>" +
-                                        "<body><sitemesh:write property='body'/></body></html>"))
                         .start()
                         .getUri());
     }

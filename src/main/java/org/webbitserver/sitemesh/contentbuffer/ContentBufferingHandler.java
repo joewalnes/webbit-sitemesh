@@ -10,7 +10,7 @@ import java.nio.CharBuffer;
 
 public abstract class ContentBufferingHandler implements HttpHandler {
 
-    protected abstract void postProcessBuffer(HttpRequest httpRequest, HttpResponse httpResponse, CharBuffer buffer)
+    protected abstract void postProcessBuffer(HttpRequest httpRequest, HttpResponse httpResponse, HttpControl httpControl, CharBuffer buffer)
             throws IOException;
 
     private final Selector selector;
@@ -23,7 +23,7 @@ public abstract class ContentBufferingHandler implements HttpHandler {
         return selector;
     }
 
-    public void handleHttpRequest(final HttpRequest httpRequest, final HttpResponse httpResponse, HttpControl httpControl) throws Exception {
+    public void handleHttpRequest(final HttpRequest httpRequest, final HttpResponse httpResponse, final HttpControl httpControl) throws Exception {
 
         if (!selector.shouldBufferForRequest(httpRequest)) {
             // Fast bail out, for obviously non-SiteMeshable requests
@@ -35,7 +35,7 @@ public abstract class ContentBufferingHandler implements HttpHandler {
             @Override
             public void postProcess(CharBuffer buffer) {
                 try {
-                    postProcessBuffer(httpRequest, httpResponse, buffer);
+                    postProcessBuffer(httpRequest, httpResponse, httpControl, buffer);
                 } catch (IOException e) {
                     httpResponse.error(e);
                 }

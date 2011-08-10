@@ -4,6 +4,7 @@ import org.sitemesh.BaseSiteMeshContext;
 import org.sitemesh.SiteMeshContext;
 import org.sitemesh.content.Content;
 import org.sitemesh.content.ContentProcessor;
+import org.webbitserver.HttpControl;
 import org.webbitserver.HttpRequest;
 
 import java.io.IOException;
@@ -24,10 +25,13 @@ public class WebbitSiteMeshContext extends BaseSiteMeshContext {
     public static final String CONTEXT_KEY = SiteMeshContext.class.getName();
 
     private final HttpRequest request;
+    private final HttpControl httpControl;
+    private Content contentToMerge;
 
-    public WebbitSiteMeshContext(HttpRequest request, ContentProcessor contentProcessor) {
+    public WebbitSiteMeshContext(HttpRequest request, HttpControl httpControl, ContentProcessor contentProcessor) {
         super(contentProcessor);
         this.request = request;
+        this.httpControl = httpControl;
     }
 
     /**
@@ -39,8 +43,7 @@ public class WebbitSiteMeshContext extends BaseSiteMeshContext {
      */
     @Override
     protected void decorate(String decoratorPath, Content content, Writer out) throws IOException {
-        // TODO
-        System.out.println("decoratorPath = " + decoratorPath);
+        throw new UnsupportedOperationException("Not supported in Webbit");
     }
 
     public String getPath() {
@@ -49,5 +52,14 @@ public class WebbitSiteMeshContext extends BaseSiteMeshContext {
 
     public static String getRequestPath(HttpRequest request) {
         return request.uri();
+    }
+
+    public void setContentToMerge(Content content) {
+        this.contentToMerge = content;
+    }
+
+    @Override
+    public Content getContentToMerge() {
+        return contentToMerge;
     }
 }
