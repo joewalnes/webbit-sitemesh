@@ -134,7 +134,7 @@ public abstract class BufferedResponse extends HttpResponseWrapper {
         postProcess(buffer == null ?
                 null :
                 CharBuffer.wrap(new String(buffer.toByteArray(), charset())));
-        return super.end();
+        return this;
     }
 
     protected void abortBufferingIfBadStatusCode(int statusCode) {

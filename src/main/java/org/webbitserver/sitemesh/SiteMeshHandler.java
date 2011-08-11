@@ -104,7 +104,7 @@ public class SiteMeshHandler extends ContentBufferingHandler {
                                 // No more decorators to apply: Write the decorated result
                                 CharSequenceList chars = new CharSequenceList();
                                 decoratedContent.getData().writeValueTo(chars);
-                                httpResponse.content(chars.toString());
+                                httpResponse.content(chars.toString()).end();
                             }
 
                         } catch (IOException e) {

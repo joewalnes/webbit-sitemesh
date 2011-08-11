@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        <sitemesh:write property="title">Anonymous page</sitemesh:write>
+    </title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: arial;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        body > header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background-color: #003;
+            text-align: center;
+        }
+
+        body > section {
+            border: 10px solid #333333;
+            margin-top: 110px;
+            margin-bottom: 20px;
+            min-height: 200px;
+            padding: 20px;
+        }
+
+        body > footer {
+            position: absolute;
+            bottom: 0;
+            height: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            background-color: #003;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Common header</h1>
+
+    <h2>
+        <sitemesh:write property="title">Anonymous page</sitemesh:write>
+    </h2>
+</header>
+<section>
+    <sitemesh:write property="body"/>
+</section>
+<footer>
+    Blah blah. Common footer.
+</footer>
+</body>
+</html>

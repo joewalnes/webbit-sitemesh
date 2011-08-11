@@ -1,6 +1,7 @@
 package org.webbitserver.sitemesh;
 
 import org.webbitserver.HttpHandler;
+import org.webbitserver.handler.StaticFileHandler;
 import org.webbitserver.handler.StringHttpHandler;
 
 /**
