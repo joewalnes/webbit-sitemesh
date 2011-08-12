@@ -34,6 +34,11 @@ public class SiteMeshHandler extends ContentBufferingHandler {
     protected void postProcessBuffer(HttpRequest httpRequest, HttpResponse httpResponse, HttpControl httpControl, CharBuffer buffer)
             throws IOException {
 
+        if (buffer == null) {
+            httpResponse.end();
+            return;
+        }
+
         WebbitSiteMeshContext context = createContext(httpRequest, httpControl, contentProcessor);
 
         applyDecorator(
@@ -52,8 +57,9 @@ public class SiteMeshHandler extends ContentBufferingHandler {
                                 final HttpHandler[] decoratorHandlers, final int currentDecorator,
                                 final HttpRequest httpRequest, final HttpResponse httpResponse, final HttpControl httpControl) {
         if (content == null) {
+
             // Content could not be parsed: Write original content
-            httpResponse.content(original.toString());
+            httpResponse.content(original.toString()).end();
         } else {
 
             // Apply decorator...
